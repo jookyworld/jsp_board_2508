@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context docBase="/Users/jooky/Documents/projects/dev/jsp_board/jsp_board_2508/src/webapp">
+  <Resources cacheMaxSize="10240">
+    <PreResources base="/Users/jooky/Documents/projects/dev/jsp_board/jsp_board_2508/target/classes" className="org.apache.catalina.webresources.DirResourceSet" webAppMount="/WEB-INF/classes"/>
+    <PostResources base="/Users/jooky/.m2/repository/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/lombok-1.18.36.jar"/>
+    <PostResources base="/Users/jooky/.m2/repository/org/eclipse/jetty/apache-jstl/11.0.0/apache-jstl-11.0.0.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/apache-jstl-11.0.0.jar"/>
+    <PostResources base="/Users/jooky/.m2/repository/jakarta/servlet/jsp/jstl/jakarta.servlet.jsp.jstl-api/2.0.0/jakarta.servlet.jsp.jstl-api-2.0.0.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/jakarta.servlet.jsp.jstl-api-2.0.0.jar"/>
+    <PostResources base="/Users/jooky/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/3.0.0/jakarta.xml.bind-api-3.0.0.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/jakarta.xml.bind-api-3.0.0.jar"/>
+    <PostResources base="/Users/jooky/.m2/repository/com/sun/activation/jakarta.activation/2.0.0/jakarta.activation-2.0.0.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/jakarta.activation-2.0.0.jar"/>
+    <PostResources base="/Users/jooky/.m2/repository/org/mortbay/jasper/taglibs-standard/10.0.0-M10/taglibs-standard-10.0.0-M10.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/taglibs-standard-10.0.0-M10.jar"/>
+    <PostResources base="/Users/jooky/.m2/repository/com/mysql/mysql-connector-j/8.3.0/mysql-connector-j-8.3.0.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/mysql-connector-j-8.3.0.jar"/>
+    <PostResources base="/Users/jooky/.m2/repository/com/google/protobuf/protobuf-java/3.25.1/protobuf-java-3.25.1.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/protobuf-java-3.25.1.jar"/>
+  </Resources>
+</Context>
