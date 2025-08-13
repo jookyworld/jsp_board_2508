@@ -1,14 +1,14 @@
 package com.ll.jsp.board.boundedContext.article.repository;
 
-import com.ll.jsp.board.boundedContext.article.dto.Article;
+import com.ll.jsp.board.boundedContext.article.dto.ArticleDto;
+import com.ll.jsp.board.boundedContext.article.entity.Article;
 import com.ll.jsp.board.boundedContext.base.Container;
+import com.ll.jsp.board.boundedContext.member.dto.Member;
 import com.ll.jsp.board.db.DBConnection;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.LongStream;
 
 public class ArticleRepository {
     private List<Article> articleList;
@@ -29,51 +29,67 @@ public class ArticleRepository {
             articleList.add(article);
         }
         return articleList;
-//        return articleList.stream()
-//                .sorted(Comparator.comparing(Article::getId).reversed()).toList();
     }
 
-    public long save(String title, String content) {
-        int id = dbConnection.insert("""
-                INSERT INTO article SET 
-                title='%s', 
-                content='%s'
+    public List<ArticleDto> joinMemberFindAll() {
+        List<ArticleDto> articleDtos = new ArrayList<>();
+        List<Map<String, Object>> rows = dbConnection.selectRows("""
+                SELECT A.id, A.title, A.content, A.regDate, M.username
+                FROM article as A
+                INNER JOIN member as M
+                ON A.member_id = M.id
+                """);
+
+        for (Map<String, Object> row : rows) {
+            ArticleDto articleDto = new ArticleDto(row);
+            articleDtos.add(articleDto);
+        }
+
+        System.out.println(rows);
+
+        return articleDtos;
+    }
+
+    public ArticleDto joinMemberFindById(long id) {
+        Map<String, Object> row = dbConnection.selectRow("""
+                SELECT A.id, A.title, A.content, A.regDate, M.username
+                FROM article AS A
+                INNER JOIN member AS M
+                ON A.member_id = M.id
+                WHERE A.id = %d
                 """
-                .formatted(title, content));
+                .formatted(id));
+        return new ArticleDto(row);
+    }
 
-//        Article article = new Article(id, title, content);
-//
-//        articleList.add(article);
-
+    public long save(String title, String content, Member member) {
+        int id = dbConnection.insert("""
+                INSERT INTO article SET
+                title='%s',
+                content='%s',
+                regDate=now(),
+                member_id=%d;
+                """
+                .formatted(title, content, member.getId()));
         return id;
     }
 
     public Article findById(Long id) {
         Map<String, Object> row = dbConnection.selectRow("SELECT * from article WHERE id=%d".formatted(id));
         return new Article(row);
-//        return articleList.stream()
-//                .filter(a -> a.getId() == id)
-//                .findFirst()
-//                .orElse(null);
     }
 
     public void modify(Long id, String title, String content) {
-        Article article = findById(id);
-
-        if (article == null) {
-            return;
-        }
-
-        article.setTitle(title);
-        article.setContent(content);
+        dbConnection.insert("""
+                UPDATE article SET
+                title = '%s',
+                content = '%s'
+                WHERE id = %d
+                """
+                .formatted(title, content, id));
     }
 
     public void delete(Long id) {
-
         dbConnection.delete("DELETE FROM article WHERE id = %d".formatted(id));
-
-        Article article = findById(id);
-        if (article == null) return;
-        articleList.remove(article);
     }
 }

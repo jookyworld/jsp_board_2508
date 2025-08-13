@@ -5,6 +5,8 @@ import com.ll.jsp.board.boundedContext.global.base.Rq;
 import com.ll.jsp.board.boundedContext.member.dto.Member;
 import com.ll.jsp.board.boundedContext.member.service.MemberService;
 
+import java.util.Base64;
+
 public class MemberController {
 
     private final MemberService memberService;
@@ -74,6 +76,15 @@ public class MemberController {
             rq.replace("해당 회원은 현재 가입되어 있지 않습니다.", "/usr/member/login");
             return;
         }
+
+        // 암호화 비밀번호 비교
+        String encryptedPassword = Base64.getEncoder().encodeToString((password + "salt").getBytes());
+
+        if (!member.getPassword().equals(encryptedPassword)) {
+            rq.replace("비밀번호가 일치하지않습니다.", "/usr/member/login");
+            return;
+        }
+
 
         rq.login(member);
 
